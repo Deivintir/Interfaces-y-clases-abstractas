@@ -136,3 +136,57 @@ let newTruck: TruckPlate = {
  * devolverá error. */
 /**--------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /**--------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**En principio, la declaración de clases en TypeScript se efectúa de la misma manera que en JavaScript desde la implementación de ECMAScript-2015, es decir, usando la
+ * palabra reservada "class", un identificador y, entre llaves, los miembros de la clase.
+ * 
+ * class Identificador {
+ *      Miembros
+ * }
+ * 
+ * El despegue de TypeScript como referencia de la comunidad de deesarrollo web se debe en buena parte a que su uso permitía utilizar clases antes que los entornos de 
+ * ejecución JavaSctipt tuvieran plena compatibilidad para la declaración de clases.
+ * 
+ * De esta manera, como primera aproximación a las clases de TypeScript podemos decir que son iguales a las de JavaScript, pero con la posibilidad de establecer un tipado
+ * estático de sus propiedades y métodos.
+ * Ejemplo: */
+
+class Bicicle {
+    marca: string;
+    modelo: string;
+    montaje: string;
+    stock: number;
+    securityStock: number;
+
+    constructor(marca: string, modelo: string, montaje: string){
+        this.marca = marca;
+        this.modelo = modelo;
+        this.montaje = montaje;
+    }
+    setStock(stock:number, securityStock:number):void{
+        this.stock = stock;
+        this.securityStock = securityStock;
+    }
+    getAvailableStock(): number{
+        return this.stock - this.securityStock;
+    }
+}
+/**En esta clase "Articleç2" podemos comprobar que disponemos de varias propiedades con sus correspondientes tipos, el método constructor en el que se pueden también
+ * asignar tipos y un método "set" y "get" con tipado estático para parámetros y su retorno.
+ * 
+ * La instancia de objetos de esta clase se llevará a cabo con el mismo mecanismo que en JavaScript, con la palabra reservada "new" seguida de la clave y un paréntesis
+ * con los argumentos que espera el constructor, ya que esa invocación llama a este método de la clase.
+ * Como en otros lenguajes que usan la programación orientada a objetos, las clases también son usadas como tipo de datos para obligar a que una variable tenga como
+ * tipo de dato una instancia de esa clase.
+ * Ejemplo: */
+let bicicleIn: Bicicle;
+bicicleIn = new Bicicle('Orbea','H230','oreTXT');
+/**Una vez que una variable o constante tiene un objeto instanciado de la clase, on la notación del punto se pueden acceder a sus métodos. Por ejemplo, añadimos las
+ * siguientes instrucciones: */
+bicicleIn.setStock(200, 20);
+console.log(bicicleIn.getAvailableStock());
+/**Algrabar y transpilar el programa, no obtendremos ninguún tipo de error. Podemos comprobar en la consola del navegador el resultado.
+ * 
+ * Por supuesto, si durante el desarrollo incumplimos cualquiera de las reglas que marcamos respecto al tipado de datos en la clase "Bicicle", TypeScript lanzará
+ * errores que podremos visualizar en la terminal. */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */

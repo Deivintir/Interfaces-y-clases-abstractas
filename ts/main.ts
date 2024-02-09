@@ -78,3 +78,61 @@ let motorbikeIn: Motorbike = {
  * 
  * Las interfaces se usan en TypeScript para un propósito den la declaración de clases, pero esta cuestión la abordaremos más adelante, dentro del aprendizaje de los
  * mecanismos de clases. */
+/**------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**Diferencias de las interfaces respecto a los tipos de objetos e intersecciones:
+ * Usar interfaces en TypeScript como tipo de dato estático es muy parecido a usar tipos de objetos añadidos a un alias de la manera que aprendimos en apartados anteriores.
+ * Ejemplo: */
+
+type Plane = {
+    passengers: number;
+    crew: number;
+    name: string;
+}
+let newPlane: Plane = {
+    passengers: 350,
+    crew: 8,
+    name: 'Boeing 747',
+}
+/**La diferencia entre un uso y otro radica en la intersección de tipos, un mecanismo que permite combinar dos o más tipos de alias, y que utiliza el signo "&" para
+ * usar un tipo en otro. Por ejemplo, podemos sustituir todo el código anterior para aprender una intersección de tipos de alias de la siguiente forma: */
+
+type Car = {
+    marca: string;
+    modelo: string;
+    motor: number;
+}
+type CarPlate = Car &{
+    matricula: number;
+}
+let carIn: CarPlate = {
+    marca: 'Renault',
+    modelo: 'meganne',
+    motor: 1600,
+    matricula: 1800,
+}
+
+/**Este mecanismo de intersección también está incluido en las interfaces.
+ * Ejemplo: */
+
+interface Truck  {
+    marca: string;
+    modelo: string;
+    motor: number;
+}
+interface TruckPlate extends Truck{
+    matricula: number;
+}
+
+let newTruck: TruckPlate = {
+    marca: 'Scania',
+    modelo: 'L11',
+    motor: 8800,
+    matricula: 6543,
+}
+
+/**Como vemos, el mecanismos es muy parecido; y en este caso, las interfaces usan la palabra reservada "extends" para implementar los miembros de una interfaz en otra.
+ * Podemos  modificar en ambos casos las propiedades de la variable newTruck para comprobar que, si se incumplen los tipos o interfaces, el transpilador de TypeScript
+ * devolverá error. */
+/**--------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**--------------------------------------------------------------------------------------------------------------------------------------------------------------------- */

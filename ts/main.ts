@@ -238,3 +238,69 @@ class SkateBoard{
 
 /**La tercera forma de especificar la visibilidad de los miembros es "protected", en la cual los mismos solo serán visibles en la clase donde se declaran y las clases que 
  * hereden de estas. Más adelante profundizaremos en su uso al aprender el mecanismo de la herencia en TypeScript. */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**Getters y setters en TypeScript:
+ * Aunque, como hemos visto en nuestro ejemplo de clase "SkateBoard", podemos establecer métodos "get" y "set" para nuestras propiedades, exisen unos accesores específicos
+ * de TypeScript para las propiedades de las clases que usan las palaras "get" y "set" seguidas del nombre de la propiedad y un paréntesis.
+ * 
+ * Un ejemplo de estos métodos podemos implementarlo modificando nuestra clase SkateBoard de la siguente manera: */
+
+class Helicopter{
+    private _name:string;
+    private model:string;
+    private crew:string;
+    private fuel:number;
+    private stock:number;
+    private securityStock:number;
+    
+    constructor(name:string, model:string, crew:string,fuel:number){
+        this._name = name;
+        this.model = model;
+        this.crew = crew;
+        this.fuel = fuel;
+    }
+    public setStock(stock:number, securityStock:number){
+        this.stock = stock;
+        this.securityStock = securityStock;
+    }
+    public getAvailableStock(): number{
+        return  this.stock - this.securityStock;
+    }
+    public set name(name:string){
+        this._name = name;
+    }
+    public get name():string{
+        return this._name;
+    }
+}
+/**El uso de estos accesores implica las siguientes particularidades:
+ *  -Como usan el nombre de la propiedad, para no obtener un error por uso duplicado del identificador se ha de cambiar el nombre de la propiedad. Normalmente se mantiene
+ * su nombre precedido de guión bajo; en nuestro caso, lo hemos cambiado por "_name".
+ *  En el accesor "set" no se indica el tipo de retorno "void".
+ *  -La transpilación debe hacerse a ECMAScript2015 o superior.
+ * 
+ * Este último punto es un aspecto destacado de  TypeScrip: en el proceso de compilación se puede determinar a qué especificación de ECMAScript convertir el archivo, y se
+ * lleva a cabo mediante el parámetro " --target". Podemos comprobarlo en la terminal y tecleamos el siguiente comando:
+ * 
+ * tsc ts/maints --outFile js/main.js --target ES2015 --watch 
+ * 
+ * es importante tener en cuenta que, si transpilamos a una versión específica de ECMAScript, debemos estar seguros de que el entorno de ejecución, sea un navegador u otro
+ * destino, tiene compatibilidad con esa versión, ya que nuestro archivo JavaScript estará escrito con instrucciones para esa versión y podría no tener compatibilidad al 100%
+ * para todas las funcionalidades
+ * 
+ * Con estas condiciones, podremos usar nuestros accesores "set" y "get"; por ejemplo, podemos añadir al archivo main.js las siguientes líneas al final del código anterior: */
+
+let helicopterIn : Helicopter;
+helicopterIn = new Helicopter('Augusta Bell', 'SH-60', 'dos', 100);
+helicopterIn.name = 'SH-80';
+console.log(helicopterIn.name);
+
+/**La salida por consola nos imprimirá el nuevo valor de la propiedad "name" del objeto "helicopterIn".
+ * 
+ * Y, paradójicamente, comprobaremos que la sintaxis de estos accesores nos proporciona una manera similar a como se accede a las propiedades públicas sin tener que invocar a
+ * métodos. Esta particularidad sintáctica, junto con las condiciones de implementación, ha provocado que los accesores "get" y "set" no se usen frecuentemente en TypeScript;
+ * la mayoría de los desarrolladores declaran los métodos, como el caso de "setStock()" y "getAvailableStock()", pero es interesante conocer esta opción porque puede aparecer
+ * en algunas librerías que usan TypeScript. */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */

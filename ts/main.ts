@@ -170,7 +170,8 @@ class Bicicle {
         return this.stock - this.securityStock;
     }
 }
-/**En esta clase "Articleç2" podemos comprobar que disponemos de varias propiedades con sus correspondientes tipos, el método constructor en el que se pueden también
+
+/**En esta clase "Article" podemos comprobar que disponemos de varias propiedades con sus correspondientes tipos, el método constructor en el que se pueden también
  * asignar tipos y un método "set" y "get" con tipado estático para parámetros y su retorno.
  * 
  * La instancia de objetos de esta clase se llevará a cabo con el mismo mecanismo que en JavaScript, con la palabra reservada "new" seguida de la clave y un paréntesis
@@ -178,15 +179,62 @@ class Bicicle {
  * Como en otros lenguajes que usan la programación orientada a objetos, las clases también son usadas como tipo de datos para obligar a que una variable tenga como
  * tipo de dato una instancia de esa clase.
  * Ejemplo: */
+
 let bicicleIn: Bicicle;
 bicicleIn = new Bicicle('Orbea','H230','oreTXT');
+
 /**Una vez que una variable o constante tiene un objeto instanciado de la clase, on la notación del punto se pueden acceder a sus métodos. Por ejemplo, añadimos las
  * siguientes instrucciones: */
+
 bicicleIn.setStock(200, 20);
 console.log(bicicleIn.getAvailableStock());
+
 /**Algrabar y transpilar el programa, no obtendremos ninguún tipo de error. Podemos comprobar en la consola del navegador el resultado.
  * 
  * Por supuesto, si durante el desarrollo incumplimos cualquiera de las reglas que marcamos respecto al tipado de datos en la clase "Bicicle", TypeScript lanzará
  * errores que podremos visualizar en la terminal. */
 /**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**Visibilidad de los miembros en TypeScript:
+ * Otra de las demandas de la comunidad de JavaScript respecto a la programación orientada a objetos ha sido siempre el acceso a los miembros de una clase, ya que en este
+ * lenguaje son siempre públicos y hay que recurrir a mecanismos más complejos para impedir que se pueda acceder a ellos.
+ * 
+ * TypeScript resuelve este problema implementando la posibilidad de incluir modificadores de acceso que permiten tres posibilidades(público, privado o protegido),
+ * un sistema común a otros lenguajes de programación.
+ * 
+ * Sin embargo, mantiene la filosofía de JavaScript, ya que, por defecto, los miembros de las clalses serán públicos; asi, no será necesario preceder su declaración con 
+ * la palabra "public", salvo que se quiera especificar por motivos semánticos o por convenciones de clean code.
+ * 
+ * En cambio, si necesitamos que los miembros sean privados, podemos preceder su declaración con la palabra "private".
+ * Ejemplo: */
+
+class SkateBoard{
+    private board:string;
+    private wheels:string;
+    private color: string;
+    private stock: number;
+    private securityStock: number;
+
+    constructor(board:string, wheels:string, color:string,){
+        this.board = board;
+        this.wheels = wheels;
+        this.color = color;
+    }
+    public setStock(stock:number, securityStock:number):void{
+        this.stock = stock;
+        this.securityStock = securityStock;
+
+    }
+    public getAvailableStock():number{
+        return this.stock - this.securityStock;
+    }
+}
+/**Ahora las propiedades son privadas; si quisiéramos acceder a ellas tendríamos que añadir más métodos, ya que no será posible el acceso con la notación del punto ni para
+ * leer sus valores ni para modificarlos. Podemos comprobarlo añadiendo las siguiente lineas, al grabar veremos que se lanzan los errores y posteriormente podemos comentar
+ * ambas líneas para que no persista el error: 
+ * 
+ * console.log(SkateBoardIn.name);
+ * SkateBoard.wheels = 'lorem impsum'*/
+
+/**La tercera forma de especificar la visibilidad de los miembros es "protected", en la cual los mismos solo serán visibles en la clase donde se declaran y las clases que 
+ * hereden de estas. Más adelante profundizaremos en su uso al aprender el mecanismo de la herencia en TypeScript. */

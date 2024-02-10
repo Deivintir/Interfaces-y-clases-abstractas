@@ -304,3 +304,80 @@ console.log(helicopterIn.name);
  * en algunas librerías que usan TypeScript. */
 /**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**Miembros estáticos en TypeScript:
+ * Desde ECMAScript 2015, una propiedad o un método de una clase en JavaScript pueden ser declarados como estáticos para acceder a ellos sin necesidad de llamarlos desde un
+ *  objeto instanciado de esa clase. Esta funcionalidad, común en otros lenguajes destinados a la programación orientada a objetos, permite modularizar código que posteriormente
+ * podrá ser usado en otra clase o directamente desde la clase.
+ * 
+ * Para declarar estáticos estos miembros, se precederán de la palabra reservada "static", perteneciente a ECMAScript-2015; pero, además, en TypeScript podrán añadirse los
+ * modificadores de acceso como "public", "private" o "protected". Vamos a explicarlo de manera práctica.
+ * Ejemplo: */
+
+class MessageDate{
+    private static days= [
+        'Domingo',
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+    ];
+    static getMessageDate(date: Date):string{
+        return this.days[date.getDay()] + ','
+              +date.getDay() + '/'
+              +date.getMonth() + '/'
+              +date.getFullYear();
+    }
+}
+let birthDay: Date = new Date(1990,9,10);
+let message:string = MessageDate.getMessageDate(birthDay);
+console.log(message);
+
+/**Esta clase dispone de dos miembros estáticos, la propiedad "days" y el método "getMessageDate()"; como se puede observar, ambos son precedidos por la palabra "static". En la
+ * propiedad "days", el motivo de declararla estática es que pueda ser usada por otro miemebro estático, el método "getMessageDate"; y este a su vez declarado estático para que
+ * pueda usarse sin necesidad de instanciar un objeto de esa clase.
+ * 
+ * De hecho, como podemos comprobar, si queremos utilizar la funcionalidad de ese método cuando declaramos una variable "message", simplemente llamamos a la clase "MessageDate" y,
+ * con la notación del punto, invocamos el método con su correspondiente argumento, sin tener que declarar ningún objeto.
+ * 
+ * Al ejecutar el programa en el navegador, podemos comprobar la funcionalidad en la consola; en este caso, un mensaje que devuelve los valores formateados de una fecha.
+ * 
+ * Y para comprobar que el miembro estático no podrá ser invocado desde un objeto de esa clase, podemos añadir el siguiente código: */
+
+let birthDayMessage = new MessageDate();
+//birthDayMessage.getMessageDate(1984,10,29); //<-Descomentar esta línea para ver el error.
+
+/**Aunque podemos instanciar un objeto de la clase "MessageDate" en la variable "birthDayMessage" incluso sin tener constructor en la clase, cuando en la siguiente línea intentamos
+ * invocar al método estático sobre el objeto, TypeScript nos devuelve un error; por tanto, debemos tener presente que solo podrán ser usados en la clase o en clases que hereden
+ * de esta.
+ * 
+ * Las clases con miembros estáticos son cada vez más utilizadas en TypeScript/JavaScript,ya que, con la llegada de los módulos en ECMAScript2015, permiten modularizar nuestras
+ * aplicaciones en archivos independientes que, mediante este mecanismo de exportación e importación, dan a los desarrolladores la posibilidad de utilizar la lógica declarada en un
+ * método estático en todos aquellos ficheros en los que se necesiten, lo que mejora notablemente el mantenimiento evolutivo de las soluciones de software en este lenguaje. */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**Clases abstractas en TypeScript:
+ * Las clases abstractas son aquellas cuyos miembros no proporcionan una implementación del código; simplemente describen su firma, es decir, el conjunto de la declaración
+ * y parámetros, y sirven como clases base para ser extendidas en otras clases en las que esos miembros sean definidos.
+ * 
+ * Por tanto, su funcionalidad en lo que respecta a su uso en herencia de clases es similar a la de las interfaces que vimos anteriormente; y se usará uno u otro mecanismo
+ * dependiendo de los casos de uso o, en mayor medida, de las preferencias de los equipos del proyecto. En el caso de TypeScript, sintácticamente tanto la clase abstracta
+ * como sus miembros abstractos son precedidos por la palabra "abstract".
+ * Ejemplo: */
+
+abstract class Price{
+    abstract setPrice(regularPrice:number, savingPercent: number):void;
+}
+
+/**En esta clase abstracta "Price", hemos declarado un método abstracto "setPrice" en el que definimos los parámetros y su tipo, asi como su retorno (en este caso, void), 
+ * pero no declaramos el cuerpo del método ni su lógica, ya que esta parte se definirá en las clases que usen esta clase, como veremos mas adelante.
+ * 
+ * Otra particularidad que debemos tener en cuenta es que las clases abstractas no permitirán la instancia de objetos de esa clase. Si, por ejemplo, añadimos al código
+ * anterior la siguiente línea, podremos comprobarlo: */
+
+//let laptopPrice = new Price(); //<- Descomentar esta línea para ver el error
+
+/**Si guardamos el archivo, TypeScript lanzará un error en el linter y la terminal indicándonos que no es posible instanciar objetos de una clase abstracta. */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
